@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{fragmentos :: head}">
+    <style>
+        .text-danger {
+            color: brown;
+        }
+    </style>
+</head>
+
+<body id="fundo">
+    <div class="container mt-5" id="fundo-branco">
+        <div class="card" id="cadastro-center">
+            <div class="card-header">
+                Cadastro de Cliente com sucesso
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Clique no botão abaixo para fazer o login</h5>
+                <a href="/clientes/login" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

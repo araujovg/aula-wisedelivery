@@ -2,6 +2,11 @@
 <html>
 
 <head th:replace="~{fragmentos :: head}">
+    <style>
+        .text-danger {
+            color:brown;
+        }
+    </style>
 </head>
 
 <body id="fundo">
@@ -17,31 +22,37 @@
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="nome" placeholder="Nome..." th:field="*{nome}"/>
                     </div>
+                    <div class="text-danger" th:errors="*{nome}"></div>
                     <div class="form-group">
                         <label for="CPF">CPF</label>
-                        <input type="text" class="form-control" id="cpf" placeholder="CPF..." />
+                        <input type="text" class="form-control" id="cpf" placeholder="CPF..." th:field="*{cpf}"/>
                     </div>
+                    <div class="text-danger" th:errors="*{cpf}"></div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="E-mail..." />
+                        <input type="email" class="form-control" id="email" placeholder="E-mail..." th:field="*{email}"/>
                     </div>
+                    <div class="text-danger" th:errors="*{email}"></div>
                     <div class="form-group">
                         <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control" id="telefone" placeholder="Telefone..." />
+                        <input type="text" class="form-control" id="telefone" placeholder="Telefone..." th:field="*{telefone}"/>
                     </div>
-                    <div class="form-group">
+                    <div class="text-danger" th:errors="*{telefone}"></div>
+                    <!-- <div class="form-group">
                         <label for="CEP">Cep</label>
                         <input type="text" class="form-control" id="cep" placeholder="Cep..." />
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="senha">Senha</label>
-                        <input type="password" class="form-control" id="senha" placeholder="Senha..." />
+                        <input type="password" class="form-control" id="senha" placeholder="Senha..." th:field="*{senha}"/>
                     </div>
+                    <div class="text-danger" th:errors="*{senha}"></div>
                     <div class="form-group">
                         <label for="confirmaSenha">Confirme sua Senha</label>
                         <input type="password" class="form-control" id="confirmaSenha"
-                            placeholder="Confirme sua Senha..." />
+                            placeholder="Confirme sua Senha..." th:field="*{confirmaSenha}"/>
                     </div>
+                    <div class="text-danger" th:errors="*{confirmaSenha}"></div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cadastrar" />
                     </div>
