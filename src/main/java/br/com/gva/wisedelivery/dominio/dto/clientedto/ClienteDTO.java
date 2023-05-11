@@ -1,4 +1,4 @@
-package br.com.gva.wisedelivery.dominio.dto;
+package br.com.gva.wisedelivery.dominio.dto.clientedto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

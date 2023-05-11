@@ -1,13 +1,13 @@
 package br.com.gva.wisedelivery.dominio;
 
-import java.util.Set;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,27 +15,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "categoria_restaurante")
-public class RestauranteCategoria {
-    
-    @Getter @Setter
-    @EqualsAndHashCode.Include
+public class ItemCardapio {
+
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
     private String nome;
-
-    @Getter @Setter
+    private String descricao;
+    private String categoria;
     private String imagem;
+    private BigDecimal preco;
+    private boolean destaque;
 
-    @Getter @Setter
-    @ManyToMany(mappedBy = "categorias")
-    private Set<Restaurante> restaurantes;
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id")
+    private Restaurante restaurante;
+    
 }
