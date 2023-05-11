@@ -32,8 +32,7 @@ public class RestauranteServiceImpl implements RestauranteService{
 
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) {
-        //dto.setLogotipo(imageService.uploadImagem(dto.getArquivoLogotipo()));
-        imageService.uploadImagem(dto.getArquivoLogotipo());
+        dto.setLogotipo(imageService.uploadImagem(dto.getArquivoLogotipo()));
         return 
             deRestauranteParaRestauranteSalvoDto(
                 getRestauranteRepository().save(
