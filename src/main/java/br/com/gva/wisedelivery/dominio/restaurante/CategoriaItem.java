@@ -1,13 +1,12 @@
-package br.com.gva.wisedelivery.dominio;
+package br.com.gva.wisedelivery.dominio.restaurante;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,27 +14,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Builder
+@Getter
+@Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "categoria_restaurante")
-public class RestauranteCategoria {
-    
-    @Getter @Setter
-    @EqualsAndHashCode.Include
+public class CategoriaItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Getter @Setter
+    @EqualsAndHashCode.Include
+    private Long Id;
     private String nome;
-
-    @Getter @Setter
     private String imagem;
 
-    @Getter @Setter
     @ManyToMany(mappedBy = "categorias")
-    private Set<Restaurante> restaurantes;
+    private List<ItemCardapio> itens;
+    
 }
