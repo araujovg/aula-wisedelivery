@@ -30,10 +30,10 @@ public class RestauranteController {
     @PostMapping("logar")
     public String logar(@ModelAttribute("restaurante") RestauranteLoginDTO restaurante) {
         if(!getRestauranteService().logar(restaurante)){
-            return "login";
+            return "login-restaurante";
         }
         
-        return "";
+        return "restaurante-dashboard";
     }
 
     @GetMapping("form-cadastro")
