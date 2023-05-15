@@ -49,5 +49,11 @@ public class RestauranteController {
         restauranteService.salvar(dto);
         return "restaurante-cadastro";
     }
+
+    @GetMapping("/admin/dashboard")
+    public String home(Model model, String restauranteEmail) {
+
+        return "restaurante-dashboard";
+    }
     
 }

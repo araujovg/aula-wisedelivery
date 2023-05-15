@@ -12,12 +12,6 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Insira seus dados</h5>
-                <form action="">
-                    <div class="form-group">
-                        <label for="CEP">Cep</label>
-                        <input type="text" class="form-control" id="cep" placeholder="Cep..." />
-                    </div>
-                </form>
                 <form th:action="@{salvar}" th:object="${restaurante}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nome">Nome do Restaurante</label>
