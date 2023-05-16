@@ -20,6 +20,13 @@
       }
     </style>
 
+    <script th:inline="javascript">
+      var restaurante = /*[[${restauranteId}]]*/ '';
+      if(restaurante) {
+        localStorage.setItem('restauranteId', restaurante.id)
+        console.log("ID RESTAURANTE OK");
+      } else console.log("ID RESTAURANTE NOK");
+    </script>
     
     <!-- Custom styles for this template -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">

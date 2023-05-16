@@ -28,12 +28,14 @@ public class RestauranteController {
     }
 
     @PostMapping("logar")
-    public String logar(@ModelAttribute("restaurante") RestauranteLoginDTO restaurante) {
+    public String logar(@ModelAttribute("restaurante") RestauranteLoginDTO restaurante, Model model) {
         if(!getRestauranteService().logar(restaurante)){
             return "login-restaurante";
         }
         
-        return "restaurante-dashboard";
+        var restauranteId = getRestauranteService().procurarRestauranteIdPeloEmail(restaurante.getEmail());
+        model.addAttribute("restauranteId", restauranteId);
+        return home(model);
     }
 
     @GetMapping("form-cadastro")
@@ -51,7 +53,7 @@ public class RestauranteController {
     }
 
     @GetMapping("/admin/dashboard")
-    public String home(Model model, String restauranteEmail) {
+    public String home(Model model) {
 
         return "restaurante-dashboard";
     }

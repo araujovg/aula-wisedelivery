@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteDTO;
+import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteSalvoDTO;
 import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
@@ -72,6 +73,15 @@ public class RestauranteServiceImpl implements RestauranteService{
     public RestauranteSalvoDTO procurarPeloEmail(String email) {
         return deRestauranteParaRestauranteSalvoDto(getRestauranteRepository().findByEmail(email).orElseThrow(
             () -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o e-mail passado")));
+    }
+
+    public RestauranteIdDTO procurarRestauranteIdPeloEmail(String email) {
+        RestauranteIdDTO dto = new RestauranteIdDTO();
+        Restaurante rest = getRestauranteRepository().findByEmail(email)
+        .orElseThrow(() -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o e-mail passado"));
+
+        dto.setId(rest.getId());
+        return dto;
     }
 
     
