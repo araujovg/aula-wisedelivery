@@ -1,5 +1,6 @@
 package br.com.gva.wisedelivery;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -9,9 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.gva.wisedelivery.dominio.restaurante.CategoriaItem;
+import br.com.gva.wisedelivery.dominio.restaurante.ItemCardapio;
 import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
 import br.com.gva.wisedelivery.dominio.restaurante.RestauranteCategoria;
 import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
+import br.com.gva.wisedelivery.repository.ItemCardapioRepository;
 import br.com.gva.wisedelivery.repository.RestauranteCategoriaRepository;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
 import br.com.gva.wisedelivery.utils.ServiceUtils;
@@ -27,6 +30,9 @@ public class WisedeliveryApplication implements CommandLineRunner{
 
 	@Autowired
 	private RestauranteRepository restauranteRepository;
+
+	@Autowired
+	private ItemCardapioRepository itemCardapioRepository;
 
 	@Autowired
 	private ServiceUtils utils;
@@ -92,8 +98,60 @@ public class WisedeliveryApplication implements CommandLineRunner{
 		rest.setSenha("1234");
 		rest.setCategorias(Set.of(cat1, cat2));
 
-		restauranteRepository.save(rest);
+		Restaurante rest2 = new Restaurante();
+		rest2.setNome("Tia Maluca");
+		rest2.setEmail("tiamaluca@rest.com");
+		rest2.setCnpj("111111111111");
+		rest2.setTelefone("21999999999");
+		rest2.setSenha("1234");
+		rest2.setCategorias(Set.of(cat3, cat4));
 
+		restauranteRepository.saveAll(List.of(rest, rest2));
+
+		criarESalvarItensDeCardapio(rest, List.of(catItem1, catItem2));
+		criarESalvarItensDeCardapio(rest2, List.of(catItem3, catItem4));
+
+	}
+
+	private void criarESalvarItensDeCardapio(Restaurante restaurante, List<CategoriaItem> categorias){
+		var item1 = ItemCardapio.builder()
+						.nome("Batata Maluca")
+						.descricao("Batata frita com muita cebola e calabresa")
+						.preco(BigDecimal.valueOf(25.0))
+						.destaque(Boolean.TRUE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+		
+		var item2 = ItemCardapio.builder()
+						.nome("Duplo X Burguer")
+						.descricao("Hamburguer com 2 carnes e molho especial da casa")
+						.preco(BigDecimal.valueOf(20.0))
+						.destaque(Boolean.TRUE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+
+		var item3 = ItemCardapio.builder()
+						.nome("Dogão podrão")
+						.descricao("Dogão gigante com tudo que tem direito")
+						.preco(BigDecimal.valueOf(30.0))
+						.destaque(Boolean.FALSE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+
+		var item4 = ItemCardapio.builder()
+						.nome("Salgado Frito")
+						.descricao("Variedades de Salgado Frito na hora")
+						.preco(BigDecimal.valueOf(7.0))
+						.destaque(Boolean.FALSE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+
+		itemCardapioRepository.saveAll(List.of(item1, item2, item3, item4));
+		
 	}
 
 }

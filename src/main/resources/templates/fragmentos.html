@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Cadastro</title>
+
 </head>
 
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:fragment="dashboard-navbar">
@@ -31,13 +32,13 @@
         <li class="nav-item">
           <a class="nav-link active" href="#">
             <span data-feather="home"></span>
-            Dashboard <span class="sr-only">(current)</span>
+            Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/admin/itens-cardapio/form-itemcardapio" id="link-itens-cardapio">
             <span data-feather="file"></span>
-            Orders
+            Itens de cardápio
           </a>
         </li>
         <li class="nav-item">

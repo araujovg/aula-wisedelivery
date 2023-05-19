@@ -24,8 +24,19 @@
       var restaurante = /*[[${restauranteId}]]*/ '';
       if(restaurante) {
         localStorage.setItem('restauranteId', restaurante.id)
-        console.log("ID RESTAURANTE OK");
       } else console.log("ID RESTAURANTE NOK");
+
+      document.addEventListener('DOMContentLoaded', function() {        
+        var restauranteId = localStorage.getItem('restauranteId');
+        if(restauranteId){ 
+          var link = document.getElementById('link-itens-cardapio');
+          var href = link.getAttribute('href');
+          link.setAttribute('href', href + '/' + restauranteId);
+        }
+        else console.log('ERRO: RESTAURANTE ID VAZIO');
+
+      })
+
     </script>
     
     <!-- Custom styles for this template -->
