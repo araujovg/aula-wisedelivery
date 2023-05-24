@@ -164,40 +164,16 @@
   <div class="container">
     <h2>Últimos Pedidos</h2>
     <div class="card-deck">
-      <div class="card w-auto text-center">
+      <div class="card w-auto text-center" th:each="restaurante : ${restaurantes}">
         <div class="card-header">
-          21/04/2020
+          <span th:text="${restaurante.nome}"></span>
         </div>
         <div class="card-body">
-          <img src="/images/Logo McDonald_MCDON_DRIV15.png" class="card-img" alt="..." id="imagemPedidos">
+<!--          <img src="/images/Logo McDonald_MCDON_DRIV15.png" class="card-img" alt="..." id="imagemPedidos">-->
           <h5 class="card-title"></h5>
-          <p class="card-text">Pedido: 2x Big Mac's + Refri 2L</p>
-          <p class="card-text"><small class="text-muted">Valor: R$35,00</small></p>
-          <a href="#" class="btn btn-primary">Nota</a>
-        </div>
-      </div>
-      <div class="card w-auto text-center">
-        <div class="card-header">
-          25/04/2020
-        </div>
-        <div class="card-body">
-          <img src="/images/201910292243_94aaf166-84cc-4ebf-a35d-d223be34d01f.jpeg" class="card-img" alt="..." id="imagemPedidos">
-          <h5 class="card-title"></h5>
-          <p class="card-text">Pedido: Peixada p/ 4</p>
-          <p class="card-text"><small class="text-muted">Valor: R$250,00</small></p>
-          <a href="#" class="btn btn-primary">Nota</a>
-        </div>
-      </div>
-      <div class="card w-auto text-center">
-        <div class="card-header">
-          29/04/2020
-        </div>
-        <div class="card-body">
-          <img src="/images/202001031317_CXpO_i.png" class="card-img" alt="..." id="imagemPedidos">
-          <h5 class="card-title"></h5>
-          <p class="card-text">Pedido: 4x Box Frango Xadrez</p>
-          <p class="card-text"><small class="text-muted">Valor: R$100,00</small></p>
-          <a href="#" class="btn btn-primary">Nota</a>
+          <p class="card-text" th:text="${restaurante.email}"></p>
+          <p class="card-text"><small class="text-muted" th:text="${restaurante.telefone}"></small></p>
+          <a th:href="@{restaurantes/} + ${restaurante.id}" class="btn btn-primary">Cardápio</a>
         </div>
       </div>
     </div>

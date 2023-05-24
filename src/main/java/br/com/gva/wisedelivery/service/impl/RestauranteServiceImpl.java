@@ -1,5 +1,6 @@
 package br.com.gva.wisedelivery.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -61,12 +62,31 @@ public class RestauranteServiceImpl implements RestauranteService{
         return dto;
     }
 
+    private RestauranteDTO deRestauranteParaRestauranteDto(Restaurante restaurante){
+        RestauranteDTO dto = new RestauranteDTO();
+        BeanUtils.copyProperties(restaurante, dto, "senha", "confirmaSenha");
+        return dto;
+    }
+
     @Override
     public boolean logar(RestauranteLoginDTO restaurante) {
         Restaurante restauranteBanco = getRestauranteRepository().findByEmail(restaurante.getEmail()).orElseThrow(
             () -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o e-mail passado"));
         return restaurante.getEmail().equals(restauranteBanco.getEmail())
             && restaurante.getSenha().equals(restauranteBanco.getSenha());
+    }
+
+    @Override
+    public List<RestauranteDTO> procurarTodos() {
+        /* List<Restaurante> restaurantes = getRestauranteRepository().findAll();
+        List<RestauranteDTO> restaurantesDto = new ArrayList<>();
+        for(Restaurante restaurante : restaurantes) {
+            RestauranteDTO dto = deRestauranteParaRestauranteDto(restaurante);
+            restaurantesDto.add(dto);
+        }
+        return restaurantesDto;*/
+
+        return getRestauranteRepository().findAll().stream().map(this::deRestauranteParaRestauranteDto).toList();
     }
 
     @Override

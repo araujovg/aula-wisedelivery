@@ -100,7 +100,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 
 		Restaurante rest2 = new Restaurante();
 		rest2.setNome("Tia Maluca");
-		rest2.setEmail("tiamaluca@rest.com");
+		rest2.setEmail("tiamaluca@teste.com");
 		rest2.setCnpj("111111111111");
 		rest2.setTelefone("21999999999");
 		rest2.setSenha("1234");
@@ -119,6 +119,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.descricao("Batata frita com muita cebola e calabresa")
 						.preco(BigDecimal.valueOf(25.0))
 						.destaque(Boolean.TRUE)
+						.ativo(Boolean.TRUE)
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();
@@ -128,6 +129,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.descricao("Hamburguer com 2 carnes e molho especial da casa")
 						.preco(BigDecimal.valueOf(20.0))
 						.destaque(Boolean.TRUE)
+						.ativo(Boolean.FALSE)
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();
@@ -137,6 +139,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.descricao("Dogão gigante com tudo que tem direito")
 						.preco(BigDecimal.valueOf(30.0))
 						.destaque(Boolean.FALSE)
+						.ativo(Boolean.TRUE)
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();
@@ -146,6 +149,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.descricao("Variedades de Salgado Frito na hora")
 						.preco(BigDecimal.valueOf(7.0))
 						.destaque(Boolean.FALSE)
+						.ativo(Boolean.FALSE)
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();

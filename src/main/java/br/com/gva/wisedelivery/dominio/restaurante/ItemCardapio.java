@@ -38,6 +38,7 @@ public class ItemCardapio {
     private String imagem;
     private BigDecimal preco;
     private boolean destaque;
+    private boolean ativo;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

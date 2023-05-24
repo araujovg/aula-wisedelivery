@@ -23,4 +23,6 @@ public interface ItemCardapioService {
 
     List<ItemCardapioTabelaDTO> procurarTodosOsItensPeloIdDoRestaurante(Long id);
 
+    List<ItemCardapioTabelaDTO> procurarTodosOsItensPeloIdDoRestauranteEQueEstejamEmDestaque(Long restauranteId);
+
 }

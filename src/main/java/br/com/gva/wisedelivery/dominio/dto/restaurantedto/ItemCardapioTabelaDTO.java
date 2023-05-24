@@ -14,6 +14,7 @@ public class ItemCardapioTabelaDTO {
     private String imagem;
     private BigDecimal preco;
     private boolean destaque;
+    private boolean ativo;
     private List<String> categorias;
     private Long restauranteId;
     

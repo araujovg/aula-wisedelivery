@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>DESTAQUE</h1>
+    <div th:each="item : ${itensEmDestaque}">
+        Nome:<p th:text="${item.nome}"></p>
+        Descrição<p th:text="${item.descricao}"></p>
+        Valor:<p th:text="${#numbers.formatCurrency(item.preco)}"></p>
+        Categorias: <span th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span>
+        <hr>
+    </div>
+    <hr>
+    <div th:each="item : ${itensCardapioRestaurante}">
+        Nome:<p th:text="${item.nome}"></p>
+        Descrição<p th:text="${item.descricao}"></p>
+        Valor:<p th:text="${#numbers.formatCurrency(item.preco)}"></p>
+        Categorias: <span th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span>
+        <hr>
+    </div>
+
+</body>
+</html>
