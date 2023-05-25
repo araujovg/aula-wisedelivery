@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Hello, world!</title>
+
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
+</head>
+
+<body>
+    <header th:replace="~{fragmentos :: header-cliente}"></header>
+
+    <div class="container">
+        <h2 th:text="${item.nome}"></h2>
+        
+        <div class="card">
+            <h5 class="card-header" th:text="${item.descricao}"></h5>
+            <div class="card-body">
+              <h5 class="card-title" th:text="${#numbers.formatCurrency(item.preco)}"></h5>
+              <form th:action="@{/clientes/carrinho}" method="post" th:object="${itemCarrinho}">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{nome}">
+                    <input type="hidden" th:field="*{descricao}">
+                    <input type="hidden" th:field="*{preco}">
+                    <label for="qtd">Quantidade</label>
+                    <input type="text" class="form-control" id="qtd" aria-describedby="qtd" th:field="*{quantidade}" />
+                    <label for="obs">Observações</label>
+                    <textarea class="form-control" id="obs" aria-describedby="obs" th:field="*{observacoes}" />
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar ao carrinho</button>
+              </form>
+            </div>
+          </div>
+
+    </div>
+
+</body>
+
+</html>

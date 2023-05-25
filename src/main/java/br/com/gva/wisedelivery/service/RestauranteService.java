@@ -12,6 +12,8 @@ public interface RestauranteService {
 
     RestauranteIdDTO procurarRestauranteIdPeloEmail(String email);
 
+    RestauranteIdDTO procurarRestaurantePeloId(Long id);
+
     RestauranteSalvoDTO procurarPeloEmail(String email);
 
     RestauranteSalvoDTO salvar(RestauranteDTO dto);

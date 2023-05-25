@@ -1,26 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Hello, world!</title>
+
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
 </head>
+
 <body>
-    <h1>DESTAQUE</h1>
-    <div th:each="item : ${itensEmDestaque}">
-        Nome:<p th:text="${item.nome}"></p>
-        Descrição<p th:text="${item.descricao}"></p>
-        Valor:<p th:text="${#numbers.formatCurrency(item.preco)}"></p>
-        Categorias: <span th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span>
-        <hr>
-    </div>
-    <hr>
-    <div th:each="item : ${itensCardapioRestaurante}">
-        Nome:<p th:text="${item.nome}"></p>
-        Descrição<p th:text="${item.descricao}"></p>
-        Valor:<p th:text="${#numbers.formatCurrency(item.preco)}"></p>
-        Categorias: <span th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span>
-        <hr>
+    <header th:replace="~{fragmentos :: header-cliente}"></header>
+
+    <div class="container">
+        <h2 th:text="${restaurante.nome}"></h2>
+        <div class="card">
+            <div class="card-header">
+                <form action="POST" class="form-inline">
+                    <select class="custom-select mr-sm-2">
+                        <option selected>Taxa de Entrega</option>
+                        <option value="1">Grátis</option>
+                        <option value="2">Menor Taxa</option>
+                        <option value="3">Maior Taxa</option>
+                    </select>
+
+                    <select class="custom-select mr-sm-2">
+                        <option selected>Preço</option>
+                        <option value="1">Menor Preço</option>
+                        <option value="2">Maior Preço</option>
+                    </select>
+
+                    <select class="custom-select mr-sm-2">
+                        <option selected>Tempo de Entrega</option>
+                        <option value="1">Menor Tempo</option>
+                        <option value="2">Maior Tempo</option>
+                    </select>
+
+                    <select class="custom-select mr-sm-2" disabled>
+                        <option selected>Distância</option>
+                        <option value="1">- 1km</option>
+                        <option value="2">+2km</option>
+                    </select>
+                </form>
+            </div>
+
+            <h2>DESTAQUE</h2>
+            <div class="card-deck">
+                <div class="card w-auto text-center" th:each="item : ${itensEmDestaque}">
+                    <div class="card-body">
+                        <img th:src="@{/images/Logo McDonald_MCDON_DRIV15.png}" class="img-fluid" width="100" height="100">
+                        <h5 class="card-title" th:text="${item.nome}"></h5>
+                        <p class="card-text" th:text="${item.descricao}"></p>
+                        <p class="card-text"><small class="text-muted" th:text="${#numbers.formatCurrency(item.preco)}"></small></p>
+                        <p class="card-text"><span class="text-muted" th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span></p>
+                        <a th:href="${item.restauranteId} + @{/itens/} + ${item.id}" class="btn btn-primary">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Todos os Itens do Cardápio -->
+        <h2>Itens do Cardápio</h2>
+        <div class="card-deck">
+            <div class="card w-auto text-center" th:each="item : ${itensCardapioRestaurante}">
+                <div class="card-body">
+                    <img th:src="@{/images/Logo McDonald_MCDON_DRIV15.png}" class="img-fluid" width="100" height="100">
+                    <h5 class="card-title" th:text="${item.nome}"></h5>
+                    <p class="card-text" th:text="${item.descricao}"></p>
+                    <p class="card-text"><small class="text-muted" th:text="${#numbers.formatCurrency(item.preco)}"></small></p>
+                    <p class="card-text"><span class="text-muted" th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span></p>
+                    <a th:href="${item.restauranteId} + @{itens/} + ${item.id}" class="btn btn-primary">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </body>
+
 </html>

@@ -129,7 +129,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.descricao("Hamburguer com 2 carnes e molho especial da casa")
 						.preco(BigDecimal.valueOf(20.0))
 						.destaque(Boolean.TRUE)
-						.ativo(Boolean.FALSE)
+						.ativo(Boolean.TRUE)
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();
@@ -154,7 +154,28 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.categorias(categorias)
 						.build();
 
-		itemCardapioRepository.saveAll(List.of(item1, item2, item3, item4));
+		var item5 = ItemCardapio.builder()
+						.nome("Salgado Frito e Assado")
+						.descricao("Variedades de Salgado Frito na hora")
+						.preco(BigDecimal.valueOf(8.0))
+						.destaque(Boolean.TRUE)
+						.ativo(Boolean.TRUE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+
+		var item6 = ItemCardapio.builder()
+						.nome("Salgado Frito e Assado")
+						.descricao("Variedades de Salgado Frito na hora")
+						.preco(BigDecimal.valueOf(8.0))
+						.destaque(Boolean.TRUE)
+						.ativo(Boolean.TRUE)
+						.restaurante(restaurante)
+						.categorias(categorias)
+						.build();
+
+
+		itemCardapioRepository.saveAll(List.of(item1, item2, item3, item4, item5, item6));
 		
 	}
 

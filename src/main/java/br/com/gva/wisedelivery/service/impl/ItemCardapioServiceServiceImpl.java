@@ -69,6 +69,7 @@ public class ItemCardapioServiceServiceImpl implements ItemCardapioService {
     private ItemCardapioDTO deItemCardapioParaItemCardapioDTO(ItemCardapio itemCardapio){
         ItemCardapioDTO dto = new ItemCardapioDTO();
         BeanUtils.copyProperties(itemCardapio, dto);
+        dto.setRestaurante(itemCardapio.getRestaurante());
         return dto;
     }
 
