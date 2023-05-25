@@ -1,29 +1,30 @@
 package br.com.gva.wisedelivery.controller;
 
-import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioDTO;
-import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
-import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
-import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
-import br.com.gva.wisedelivery.service.ItemCardapioService;
-import br.com.gva.wisedelivery.service.RestauranteService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.gva.wisedelivery.controller.validator.Validator;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
+import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
+import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
+import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
 import br.com.gva.wisedelivery.service.ClienteService;
+import br.com.gva.wisedelivery.service.ItemCardapioService;
+import br.com.gva.wisedelivery.service.RestauranteService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @Log4j2
 @Controller
@@ -44,7 +45,7 @@ public class ClienteController {
 
     @Autowired
     @Getter private Validator<ClienteDTO> validator;
-    
+
     @GetMapping("form-cadastro")
     public String formCadastroCliente( Model model ){
         model.addAttribute("cliente", new ClienteDTO());
@@ -73,7 +74,7 @@ public class ClienteController {
         if(!getClienteService().login(cliente)) {
             return "login";
         }
-        return "cliente-home";        
+        return "cliente-home";
     }
 
     @GetMapping("/home")

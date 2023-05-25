@@ -37,7 +37,7 @@ public class RestauranteServiceImpl implements RestauranteService{
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) {
         dto.setLogotipo(imageService.uploadImagem(dto.getArquivoLogotipo()));
-        return 
+        return
             deRestauranteParaRestauranteSalvoDto(
                 getRestauranteRepository().save(
                     deDtoParaRestaurante(dto)
@@ -113,5 +113,10 @@ public class RestauranteServiceImpl implements RestauranteService{
         return dto;
     }
 
-    
+    @Override
+    public Restaurante procurarRestaurante(Long id) {
+        return getRestauranteRepository().findById(id).orElseThrow(() -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o Id passado"));
+    }
+
+
 }
