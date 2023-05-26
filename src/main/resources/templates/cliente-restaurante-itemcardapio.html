@@ -29,12 +29,8 @@
             <h5 class="card-header" th:text="${item.descricao}"></h5>
             <div class="card-body">
               <h5 class="card-title" th:text="${#numbers.formatCurrency(item.preco)}"></h5>
-              <form th:action="@{/clientes/carrinho}" method="post" th:object="${itemCarrinho}">
+              <form th:action="@{/clientes/carrinho/add/} + ${item.id}" method="post" th:object="${itemCarrinho}">
                 <div class="form-group">
-                    <input type="hidden" th:field="*{id}">
-                    <input type="hidden" th:field="*{nome}">
-                    <input type="hidden" th:field="*{descricao}">
-                    <input type="hidden" th:field="*{preco}">
                     <label for="qtd">Quantidade</label>
                     <input type="text" class="form-control" id="qtd" aria-describedby="qtd" th:field="*{quantidade}" />
                     <label for="obs">Observações</label>

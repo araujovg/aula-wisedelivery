@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragmentos :: head}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Carrinho</h1>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Preço Unt</th>
+                <th scope="col">Qtd</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item : ${carrinho.itens}">
+                <td scope="col" th:text="${item.itemCardapio.nome}"></td>
+                <td scope="col" th:text="${#numbers.formatCurrency(item.itemCardapio.preco)}"></td>
+                <td scope="col" th:text="${item.quantidade}"></td>
+                <td scope="col" th:text="${#numbers.formatCurrency(item.preco)}"></td>
+              </tr>
+              <tr>
+                <td scope="col"></td>
+                <td scope="col"></td>
+                <td scope="col">Total do Carrinho:</td>
+                <td scope="col" th:text="${#numbers.formatCurrency(carrinho.total)}"></td>
+              </tr>
+            </tbody>
+        </table>
+        
+        <div class="alert alert-danger mt-5" role="alert" th:if="${erro}">
+            <span th:text="${msgErroRestaurante}"></span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -7,11 +7,9 @@ import java.math.BigDecimal;
 @Data
 public class ItemCarrinhoDTO {
 
-    private Long id;
-    private String nome;
-    private String descricao;
+    private ItemCardapioDTO itemCardapio;
     private String observacoes;
     private BigDecimal preco;
     private int quantidade;
-
+    
 }

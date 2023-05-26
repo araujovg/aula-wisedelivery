@@ -81,7 +81,7 @@
                     <p class="card-text" th:text="${item.descricao}"></p>
                     <p class="card-text"><small class="text-muted" th:text="${#numbers.formatCurrency(item.preco)}"></small></p>
                     <p class="card-text"><span class="text-muted" th:each="categoria: ${item.categorias}" th:text="${categoria} + ', '"></span></p>
-                    <a th:href="${item.restauranteId} + @{itens/} + ${item.id}" class="btn btn-primary">Ver Detalhes</a>
+                    <a th:href="${item.restauranteId} + @{/itens/} + ${item.id}" class="btn btn-primary">Ver Detalhes</a>
                 </div>
             </div>
         </div>
