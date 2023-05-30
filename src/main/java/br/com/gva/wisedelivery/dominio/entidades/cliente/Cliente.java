@@ -1,4 +1,4 @@
-package br.com.gva.wisedelivery.dominio.cliente;
+package br.com.gva.wisedelivery.dominio.entidades.cliente;
 
 import br.com.gva.wisedelivery.dominio.Usuario;
 import jakarta.persistence.Column;

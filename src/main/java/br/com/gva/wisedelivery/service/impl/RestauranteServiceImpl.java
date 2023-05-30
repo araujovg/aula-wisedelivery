@@ -1,6 +1,5 @@
 package br.com.gva.wisedelivery.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -11,9 +10,9 @@ import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteSalvoDTO;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.RestauranteCategoria;
 import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
-import br.com.gva.wisedelivery.dominio.restaurante.RestauranteCategoria;
 import br.com.gva.wisedelivery.repository.RestauranteCategoriaRepository;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
 import br.com.gva.wisedelivery.service.RestauranteService;

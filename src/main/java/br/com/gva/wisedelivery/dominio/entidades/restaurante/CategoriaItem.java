@@ -1,4 +1,4 @@
-package br.com.gva.wisedelivery.dominio.restaurante;
+package br.com.gva.wisedelivery.dominio.entidades.restaurante;
 
 import java.util.List;
 

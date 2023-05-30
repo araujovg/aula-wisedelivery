@@ -1,12 +1,12 @@
 package br.com.gva.wisedelivery.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-import br.com.gva.wisedelivery.dominio.restaurante.ItemCardapio;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.ItemCardapio;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 
 
 public interface ItemCardapioRepository extends JpaRepository<ItemCardapio, Long> {
