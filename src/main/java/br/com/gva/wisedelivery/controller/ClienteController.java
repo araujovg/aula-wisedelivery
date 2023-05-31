@@ -23,6 +23,7 @@ import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
 import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
+import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -44,6 +45,9 @@ public class ClienteController {
 
     @Autowired
     @Getter private ItemCardapioService itemCardapioService;
+
+    @Autowired
+    @Getter private PedidoService pedidoService;
 
     @Autowired
     @Getter private Validator<ClienteDTO> validator;
@@ -125,8 +129,8 @@ public class ClienteController {
     }
 
     @GetMapping("finalizar-pedido")
-    public String finalizarPedido(Model model){
-        
+    public String telaFinalizarPedido(Model model){
+           model.addAttribute("pedido", pedidoService.telaFinalizarPedido(carrinho));
         return "cliente-confirmacao-pedido";
     }
 }
