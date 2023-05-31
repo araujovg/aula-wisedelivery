@@ -123,4 +123,10 @@ public class ClienteController {
         model.addAttribute("carrinho", carrinho);
         return "cliente-carrinho";
     }
+
+    @GetMapping("finalizar-pedido")
+    public String finalizarPedido(Model model){
+        
+        return "cliente-confirmacao-pedido";
+    }
 }

@@ -45,6 +45,9 @@
         <div class="alert alert-danger mt-5" role="alert" th:if="${erro}">
             <span th:text="${msgErroRestaurante}"></span>
         </div>
+
+        <a th:href="@{/clientes/finalizar-pedido}">Finalizar Pedido</a>
+
     </div>
 </body>
 
