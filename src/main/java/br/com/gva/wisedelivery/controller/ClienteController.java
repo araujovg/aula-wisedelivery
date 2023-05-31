@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.gva.wisedelivery.controller.validator.Validator;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
+import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
+import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
 import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
@@ -31,11 +33,11 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("clientes")
 public class ClienteController {
 
-    public ClienteController(RestauranteService restauranteService){
-        this.restauranteService = restauranteService;
-    }
+    @Autowired
+    @Getter private Carrinho carrinho;
 
-    @Getter private final RestauranteService restauranteService;
+    @Autowired
+    @Getter private RestauranteService restauranteService;
 
     @Autowired
     @Getter private ClienteService clienteService;
@@ -104,7 +106,14 @@ public class ClienteController {
 
     @PostMapping("carrinho/add/{itemId}")
     public String adicionaItemAoCarrinho(@ModelAttribute("itemCarrinho")ItemCarrinhoDTO itemCarrinhoDTO, @PathVariable("itemId") Long itemId, Model model) {
-        model.addAttribute("item", getItemCardapioService().procurarPeloId(1L));
-        return "cliente-restaurante-itemcardapio";
+        try {
+            carrinho.adicionarItem(itemCarrinhoDTO, itemId);
+        } catch (RestauranteDiferenteExcpetion e) {
+            model.addAttribute("erro", true);
+            model.addAttribute("msgErroRestaurante", e.getMessage());
+        }
+                
+        model.addAttribute("carrinho", carrinho);
+        return "cliente-carrinho";
     }
 }
