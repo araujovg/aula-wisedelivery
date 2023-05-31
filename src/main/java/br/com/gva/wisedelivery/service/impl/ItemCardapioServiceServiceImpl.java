@@ -1,8 +1,6 @@
 package br.com.gva.wisedelivery.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
-import br.com.gva.wisedelivery.dominio.restaurante.CategoriaItem;
-import br.com.gva.wisedelivery.dominio.restaurante.ItemCardapio;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.CategoriaItem;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.ItemCardapio;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
 import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
 import br.com.gva.wisedelivery.repository.ItemCardapioRepository;

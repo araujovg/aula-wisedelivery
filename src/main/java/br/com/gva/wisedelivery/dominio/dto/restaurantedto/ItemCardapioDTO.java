@@ -3,8 +3,8 @@ package br.com.gva.wisedelivery.dominio.dto.restaurantedto;
 import java.math.BigDecimal;
 import java.util.List;
 
-import br.com.gva.wisedelivery.dominio.restaurante.CategoriaItem;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.CategoriaItem;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 import lombok.Data;
 
 @Data

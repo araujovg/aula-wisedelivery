@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.gva.wisedelivery.dominio.restaurante.RestauranteCategoria;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.RestauranteCategoria;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

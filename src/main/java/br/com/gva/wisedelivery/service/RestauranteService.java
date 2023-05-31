@@ -6,8 +6,8 @@ import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteSalvoDTO;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
-import br.com.gva.wisedelivery.dominio.restaurante.RestauranteCategoria;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.RestauranteCategoria;
 
 public interface RestauranteService {
 

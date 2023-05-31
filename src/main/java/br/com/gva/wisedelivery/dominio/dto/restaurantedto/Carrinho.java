@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
 import lombok.Getter;
@@ -34,11 +34,11 @@ public class Carrinho {
         log.info(String.format("Restaurante: [%s]", itemCardapioDto.getRestaurante().getNome()));
         if(itens.isEmpty()) {
             this.restaurante = itemCardapioDto.getRestaurante();
+            itemCarrinhoDTO.setId(1L);
         }
         else if(!restauranteIgual(itemCardapioDto.getRestaurante())) {
             throw new RestauranteDiferenteExcpetion("Não é possível adicionar itens de restaurantes diferentes no mesmo carrinho");
         }
-
         itemCarrinhoDTO.setItemCardapio(itemCardapioDto);
         itemCarrinhoDTO.setPreco(
             itemCardapioDto
@@ -48,8 +48,9 @@ public class Carrinho {
         log.info(String.format("Adionando Item ao Carrinho: [%s]", itemCarrinhoDTO.getItemCardapio().getNome()));
         log.info(String.format("Adionando Item ao Carrinho. Preço: [%s]", itemCarrinhoDTO.getPreco()));
         log.info(String.format("Restaurante: [%s]", itemCarrinhoDTO.getItemCardapio().getRestaurante().getNome()));
+        itemCarrinhoDTO.setId(itemCarrinhoDTO.getId().equals(1L) ? 1L : Long.valueOf(this.itens.size() + 1));
         itens.add(itemCarrinhoDTO);
-        setTotalCarrinho(itemCarrinhoDTO);        
+        setTotalCarrinho(itens);        
     }
 
     private boolean restauranteIgual(Restaurante restaurante) {
@@ -60,8 +61,17 @@ public class Carrinho {
         this.itemCardapioDto = itemCardapioService.procurarPeloId(itemCardapioDtoId);
     }
 
-    private void setTotalCarrinho(ItemCarrinhoDTO item){
-        setTotal(total.add(item.getPreco()));
+    public void removerItemDCarrinho(Long itemCarrinhoId){
+        ItemCarrinhoDTO itemCarrinho = this.itens.stream().filter( item -> item.getId().equals(itemCarrinhoId)).toList().get(0);
+        this.itens.remove(itemCarrinho);
+        setTotalCarrinho(itens);  
+    }
+
+    private void setTotalCarrinho(List<ItemCarrinhoDTO> itensCarrinho){
+        setTotal(BigDecimal.ZERO);
+        for(ItemCarrinhoDTO item : itensCarrinho) {
+            setTotal(total.add(item.getPreco()));
+        }        
     }
 
     private void setTotal(BigDecimal valor){

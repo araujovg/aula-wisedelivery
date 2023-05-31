@@ -9,10 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.gva.wisedelivery.dominio.restaurante.CategoriaItem;
-import br.com.gva.wisedelivery.dominio.restaurante.ItemCardapio;
-import br.com.gva.wisedelivery.dominio.restaurante.Restaurante;
-import br.com.gva.wisedelivery.dominio.restaurante.RestauranteCategoria;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.CategoriaItem;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.ItemCardapio;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
+import br.com.gva.wisedelivery.dominio.entidades.restaurante.RestauranteCategoria;
 import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
 import br.com.gva.wisedelivery.repository.ItemCardapioRepository;
 import br.com.gva.wisedelivery.repository.RestauranteCategoriaRepository;

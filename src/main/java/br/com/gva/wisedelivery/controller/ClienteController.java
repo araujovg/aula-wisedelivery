@@ -116,4 +116,11 @@ public class ClienteController {
         model.addAttribute("carrinho", carrinho);
         return "cliente-carrinho";
     }
+
+    @GetMapping("carrinho/rem/{itemId}")
+    public String removeItemCarrinho(@PathVariable("itemId") Long itemId, Model model) {
+        carrinho.removerItemDCarrinho(itemId);
+        model.addAttribute("carrinho", carrinho);
+        return "cliente-carrinho";
+    }
 }
