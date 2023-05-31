@@ -25,7 +25,7 @@ import lombok.Setter;
 @Builder
 @Entity
 public class Pedido {
-    
+
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -7,10 +7,12 @@ import br.com.gva.wisedelivery.dominio.entidades.restaurante.ItemCardapio;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class ItemPedido {
@@ -19,7 +21,7 @@ public class ItemPedido {
     @Getter @Setter
     @EmbeddedId
     private ItemPedidoPK id;
-    
+
     @Getter @Setter
     @ManyToOne
     private ItemCardapio itemCardapio;
