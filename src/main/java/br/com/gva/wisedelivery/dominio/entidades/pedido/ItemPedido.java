@@ -31,13 +31,9 @@ public class ItemPedido {
     @Getter @Setter
     private String observacoes;
 
-    @Setter
+    @Getter @Setter
     private BigDecimal preco;
 
     @Getter @Setter
     private int quantidade;
-
-    public BigDecimal getPreco(){
-        return preco.multiply(BigDecimal.valueOf(quantidade));
-    }
 }
