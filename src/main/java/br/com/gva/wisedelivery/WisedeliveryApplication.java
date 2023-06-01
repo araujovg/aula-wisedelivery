@@ -9,11 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.gva.wisedelivery.dominio.entidades.cliente.Cliente;
 import br.com.gva.wisedelivery.dominio.entidades.restaurante.CategoriaItem;
 import br.com.gva.wisedelivery.dominio.entidades.restaurante.ItemCardapio;
 import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 import br.com.gva.wisedelivery.dominio.entidades.restaurante.RestauranteCategoria;
 import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
+import br.com.gva.wisedelivery.repository.ClienteRepository;
 import br.com.gva.wisedelivery.repository.ItemCardapioRepository;
 import br.com.gva.wisedelivery.repository.RestauranteCategoriaRepository;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
@@ -21,6 +23,9 @@ import br.com.gva.wisedelivery.utils.ServiceUtils;
 
 @SpringBootApplication
 public class WisedeliveryApplication implements CommandLineRunner{
+
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Autowired
 	private RestauranteCategoriaRepository restauranteCategoriaRepository;
@@ -96,6 +101,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 		rest.setCnpj("111111111111");
 		rest.setTelefone("21999999999");
 		rest.setSenha("1234");
+		rest.setTaxaEntrega(BigDecimal.valueOf(10.0));
 		rest.setCategorias(Set.of(cat1, cat2));
 
 		Restaurante rest2 = new Restaurante();
@@ -104,7 +110,18 @@ public class WisedeliveryApplication implements CommandLineRunner{
 		rest2.setCnpj("111111111111");
 		rest2.setTelefone("21999999999");
 		rest2.setSenha("1234");
+		rest.setTaxaEntrega(BigDecimal.valueOf(5.0));
 		rest2.setCategorias(Set.of(cat3, cat4));
+
+		Cliente cli1 = new Cliente();
+		cli1.setNome("Cliente Teste");
+		cli1.setCpf("11111111111");
+		cli1.setEmail("cliente@teste.com");
+		cli1.setSenha("1234");
+		cli1.setTelefone("21999999999");
+
+		clienteRepository.save(cli1);
+
 
 		restauranteRepository.saveAll(List.of(rest, rest2));
 

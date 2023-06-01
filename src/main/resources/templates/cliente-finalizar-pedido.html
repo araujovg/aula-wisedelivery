@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <title>BlueFood::Pesquisa</title>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var clienteId = localStorage.getItem('clienteId');
+            if (clienteId) {
+                /* var link = document.getElementById('link-itens-cardapio');
+                var href = link.getAttribute('href');
+                link.setAttribute('href', href + '/' + restauranteId); */
+            }
+            else console.log('ERRO: CLIENTE ID VAZIO');
+
+        })
+    </script>
+</head>
+
+<body id="fundo">
+    <div class="container-fluid" id="fundo-branco"></div>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: transparent;">
+                <a class="navbar-brand" href="#">
+                    <img src="images/bf_logotipoSistema.png" width="150" height="auto" class="d-inline-block align-top"
+                        alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Entregador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Restaurantes</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="images/bf_iconeCarrinho.png" style="max-width: 25px; max-height: 25px;"
+                                    alt="">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="#">
+                                    <div class="card" style="background-color: transparent; border: none;">
+                                        <div class="card-body">
+                                            Itens
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
+                    </form>
+                    <div class="dropdown" style="margin-left: 1%;">
+                        <button class="btn btn-suc  cess dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuário
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Editar Perfil</a>
+                            <a class="dropdown-item" href="#">Pedidos</a>
+                            <a class="dropdown-item" href="#">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container w-50 position-relative bg-white p-2 shadow">
+        <div class="container">
+            <div class="row">
+                <a href="#" class="muted">
+                    <span class="material-icons align-middle">chevron_left</span>
+                    <span class="align-middle">Voltar</span>
+                </a>
+            </div>
+
+            <div class="row mt-3">
+                <h2 class="text-muted" style="display: block;" th:text="${pedido.restaurante.nome}"></h2>
+            </div>
+
+            <!-- Itens do Pedido -->
+
+            <ul class="list-group list-group-flush" th:each="item : ${pedido.itens}">
+                <li class="list-group-item">
+                    <div class="row justify-content-between">
+                        <strong>
+                            <span th:text="${item.quantidade} + ' x ' + ${item.itemCardapio.nome}"></span>
+                        </strong>
+                        <strong>
+                            <span th:text="${#numbers.formatCurrency(item.preco)}"></span>
+                        </strong>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Resumo dos valores do Pedido -->
+            <div class="row justify-content-between">
+                <strong><span>SubTotal</span></strong>
+                <strong><span th:text="${#numbers.formatCurrency(pedido.subTotal)}"></span></strong>
+            </div>
+
+            <div class="row justify-content-between">
+                <span>Taxa de Entrega</span>
+                <span class="text-muted" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
+            </div>
+            <div class="row pb-4 justify-content-between">
+                <strong><span>Total</span></strong>
+                <strong><span th:text="${#numbers.formatCurrency(pedido.total)}"></span></strong>
+            </div>
+            <div class="row">
+                <div class="col-auto pl-0 lead" id="previsaoEntrega">
+                    <span class="text-muted">Entrega em</span>
+                    <p>Rua, Num - Bairro - Cidade/UF</p>
+                </div>
+            </div>
+            <div class="row">
+                <p class="lead">Ponto de referência: Jardim Iguaçu Canetas Compactor</p>
+            </div>
+            <div class="row">
+                <div class="col-auto pl-0 lead" id="previsaoEntrega">
+                    <span class="text-muted">Data do Pedido</span>
+                    <p>27/04/2020- 20:16</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto pl-0 lead" id="previsaoEntrega">
+                    <span class="text-muted">Pagamento na entrega</span>
+                    <p>DINHEIRO</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto pl-0 lead" id="previsaoEntrega">
+                    <span class="text-muted">Status do Pedido</span>
+                    <p>Conluido</p>
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <button type="button" class="btn btn-outline-primary ml-3">Pedir novamente</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

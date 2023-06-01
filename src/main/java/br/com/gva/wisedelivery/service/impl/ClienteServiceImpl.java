@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
+import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteSalvoDTO;
 import br.com.gva.wisedelivery.dominio.entidades.cliente.Cliente;
@@ -44,6 +45,18 @@ public class ClienteServiceImpl implements ClienteService {
         ClienteSalvoDTO clienteSalvoDTO = new ClienteSalvoDTO();
         BeanUtils.copyProperties(cliente, clienteSalvoDTO, "senha", "confirmaSenha");
         return clienteSalvoDTO;
+    }
+
+    private ClienteIdDTO deCLienteParaClienteIdDto(Cliente cliente){
+        ClienteIdDTO clienteIdDTO = new ClienteIdDTO();
+        clienteIdDTO.setId(cliente.getId());
+        return clienteIdDTO;
+    }
+
+    @Override
+    public ClienteIdDTO procurarCliente(String email) {
+        Cliente cliente = getClienteRepository().findByEmail(email).orElseThrow( () -> new ObjetoNaoEncontradoException(String.format("Cliente não encontrado para o email: [%s]", email)));
+        return deCLienteParaClienteIdDto(cliente);
     }
 
 }

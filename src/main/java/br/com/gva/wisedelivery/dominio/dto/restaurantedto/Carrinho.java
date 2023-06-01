@@ -25,7 +25,7 @@ public class Carrinho {
     private final ItemCardapioService itemCardapioService;
     
     @Getter private List<ItemCarrinhoDTO> itens = new ArrayList<>();
-    private Restaurante restaurante;
+    @Getter private Restaurante restaurante;
     private ItemCardapioDTO itemCardapioDto;
     @Getter private BigDecimal total = new BigDecimal(0);
 
