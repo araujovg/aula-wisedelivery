@@ -12,10 +12,12 @@
   <link rel="stylesheet" href="css/estilos.css">
   <title>BlueFood::Pesquisa</title>
 
-  <script>
-    $(function () {
-    $('[data-toggle="popover"]').popover()
-  })
+  <script th:inline="javascript">
+    var cliente = /*[[${clienteId}]]*/ '';
+    if(cliente) {
+      localStorage.setItem('clienteId', cliente.id)
+    } else console.log("ID CLIENTE NOK");
+
   </script>
 </head>
 

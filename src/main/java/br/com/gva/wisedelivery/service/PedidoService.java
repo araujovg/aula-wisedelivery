@@ -8,14 +8,15 @@ import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 
 public interface PedidoService {
-    
+
     PedidoDTO buscarPedidoPeloId(Long id);
 
-    List<PedidoDTO> buscarTodosPedidosPorRestauranteId(Long restauranteId);
+    List<PedidoDTO> buscarTodosOsPedidosPorRestauranteId(Long restauranteId);
 
-    List<PedidoDTO> buscarTodosPedidosPorClienteId(Long clienteId);
+    List<PedidoDTO> buscarTodosOsPedidosPorClienteId(Long clienteId);
 
-    PedidoTelaFinalizarDTO telaFinalizarPedido(Carrinho carrinho);
+    PedidoTelaFinalizarDTO deCarrinhoParaPedido(Carrinho carrinho);
 
     PedidoDTO finalizarPedido(PedidoFinalizarDTO pedido);
+
 }

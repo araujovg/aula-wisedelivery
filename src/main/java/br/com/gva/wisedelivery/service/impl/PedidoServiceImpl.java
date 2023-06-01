@@ -1,6 +1,7 @@
 package br.com.gva.wisedelivery.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,18 @@ import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.entidades.pedido.ItemPedido;
 import br.com.gva.wisedelivery.repository.ItemCardapioRepository;
-import br.com.gva.wisedelivery.service.ItemCardapioService;
 import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
+import lombok.Getter;
 
 @Service
 public class PedidoServiceImpl implements PedidoService{
 
     @Autowired
-    private RestauranteService restauranteService;
+    @Getter private RestauranteService restauranteService;
 
     @Autowired
-    private ItemCardapioRepository itemCardapioRepository;
+    @Getter private ItemCardapioRepository itemCardapioRepository;
 
     @Override
     public PedidoDTO buscarPedidoPeloId(Long id) {
@@ -33,25 +34,25 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
-    public List<PedidoDTO> buscarTodosPedidosPorRestauranteId(Long restauranteId) {
+    public List<PedidoDTO> buscarTodosOsPedidosPorRestauranteId(Long restauranteId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarTodosPedidosPorRestauranteId'");
+        throw new UnsupportedOperationException("Unimplemented method 'buscarTodosOsPedidosPorRestauranteId'");
     }
 
     @Override
-    public List<PedidoDTO> buscarTodosPedidosPorClienteId(Long clienteId) {
+    public List<PedidoDTO> buscarTodosOsPedidosPorClienteId(Long clienteId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarTodosPedidosPorClienteId'");
+        throw new UnsupportedOperationException("Unimplemented method 'buscarTodosOsPedidosPorClienteId'");
     }
 
     @Override
-    public PedidoTelaFinalizarDTO telaFinalizarPedido(Carrinho carrinho) {
+    public PedidoTelaFinalizarDTO deCarrinhoParaPedido(Carrinho carrinho) {
         PedidoTelaFinalizarDTO pedido = new PedidoTelaFinalizarDTO();
         pedido.setData(LocalDateTime.now());
-        pedido.setRestaurante(restauranteService.procurarPeloEmail(carrinho.getRestaurante().getEmail()));
-        pedido.setSubtotal(carrinho.getTotal());
+        pedido.setRestaurante(getRestauranteService().procurarPeloEmail(carrinho.getRestaurante().getEmail()));
+        pedido.setSubTotal(carrinho.getTotal());
         pedido.setTaxaEntrega(carrinho.getRestaurante().getTaxaEntrega());
-        pedido.setTotal(pedido.getSubtotal().add(pedido.getTaxaEntrega()));
+        pedido.setTotal(pedido.getSubTotal().add(pedido.getTaxaEntrega()));
         pedido.setItens(getItensPedido(carrinho.getItens()));
         return pedido;
     }
@@ -62,12 +63,27 @@ public class PedidoServiceImpl implements PedidoService{
         throw new UnsupportedOperationException("Unimplemented method 'finalizarPedido'");
     }
 
+    /* private List<ItemPedido> getItensPedido(List<ItemCarrinhoDTO> itens){
+        ItemPedido itemPedido = new ItemPedido();
+        List<ItemPedido> itensPedidoLista = new ArrayList<>();
+        for(ItemCarrinhoDTO item : itens) {
+            itemPedido.setObservacoes(item.getObservacoes());
+            itemPedido.setPreco(item.getPreco());
+            itemPedido.setQuantidade(item.getQuantidade());
+            itemPedido.setItemCardapio(itemCardapioRepository.findById(item.getItemCardapio().getId()).get());
+            itensPedidoLista.add(itemPedido);
+        }
+        return itensPedidoLista;
+    } */
+
     private List<ItemPedido> getItensPedido(List<ItemCarrinhoDTO> itens){
         return itens.stream().map(item -> {
             return ItemPedido.builder()
+                .observacoes(item.getObservacoes())
+                .preco(item.getPreco())
+                .quantidade(item.getQuantidade())
                 .itemCardapio(itemCardapioRepository.findById(item.getItemCardapio().getId()).get())
                 .build();
         }).toList();
     }
-
 }

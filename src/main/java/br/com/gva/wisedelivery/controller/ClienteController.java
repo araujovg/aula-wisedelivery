@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.gva.wisedelivery.controller.validator.Validator;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
+import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
@@ -25,6 +26,7 @@ import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
 import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
+import br.com.gva.wisedelivery.service.impl.PedidoServiceImpl;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -76,11 +78,13 @@ public class ClienteController {
     }
 
     @PostMapping("/logar")
-    public String login(@ModelAttribute("cliente") ClienteLoginDTO cliente){
+    public String login(@ModelAttribute("cliente") ClienteLoginDTO cliente, Model model){
         if(!getClienteService().login(cliente)) {
             return "login";
         }
-        return "cliente-home";
+        ClienteIdDTO clienteIdDto = getClienteService().procurarCliente(cliente.getEmail());
+        model.addAttribute("clienteId", clienteIdDto);
+        return home(model);
     }
 
     @GetMapping("/home")
@@ -116,7 +120,7 @@ public class ClienteController {
             model.addAttribute("erro", true);
             model.addAttribute("msgErroRestaurante", e.getMessage());
         }
-                
+
         model.addAttribute("carrinho", carrinho);
         return "cliente-carrinho";
     }
@@ -128,9 +132,9 @@ public class ClienteController {
         return "cliente-carrinho";
     }
 
-    @GetMapping("finalizar-pedido")
+    @GetMapping("tela-finalizar-pedido")
     public String telaFinalizarPedido(Model model){
-           model.addAttribute("pedido", pedidoService.telaFinalizarPedido(carrinho));
-        return "cliente-confirmacao-pedido";
+        model.addAttribute("pedido", pedidoService.deCarrinhoParaPedido(carrinho));
+        return "cliente-finalizar-pedido";
     }
 }
