@@ -14,6 +14,19 @@
 
     <title>BlueFood::Pesquisa</title>
 
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var clienteId = localStorage.getItem('clienteId');
+            if (clienteId) {
+                /* var link = document.getElementById('link-itens-cardapio');
+                var href = link.getAttribute('href');
+                link.setAttribute('href', href + '/' + restauranteId); */
+            }
+            else console.log('ERRO: CLIENTE ID VAZIO');
+
+        })
+    </script>
 </head>
 
 <body id="fundo">
@@ -82,57 +95,57 @@
 
     <div class="container w-50 position-relative bg-white p-2 shadow">
         <div class="container">
-            <div class="row">
-                <a href="#" class="muted">
-                    <span class="material-icons align-middle">chevron_left</span>
-                    <span class="align-middle">Voltar</span>
-                </a>
-            </div>
+            <h2>Inserir Endereço</h2>
+                <form th:action="@{/clientes/endereco/inserir}" th:object="${endereco}" method="post"
+                    enctype="multipart/form-data">
 
-            <div class="row mt-3">
-                <h2 class="text-muted" style="display: block;" th:text="${pedido.restaurante.nome}"></h2>
-            </div>
-
-            <!-- Itens do Pedido -->
-
-            <ul class="list-group list-group-flush" th:each="item : ${pedido.itens}">
-                <li class="list-group-item">
-                    <div class="row justify-content-between">
-                        <strong>
-                            <span th:text="${item.quantidade} + ' x ' + ${item.itemCardapio.nome}"></span>
-                        </strong>
-                        <strong>
-                            <span th:text="${#numbers.formatCurrency(item.preco)}"></span>
-                        </strong>
+                    <!-- cep -->
+                    <div class="form-group">
+                        <label for="cep"></label>
+                        <input type="text" name="cep" id="cep" placeholder="cep..." class="form-control"
+                            th:field="*{cep}" />
                     </div>
-                </li>
-            </ul>
 
-            <!-- Resumo dos valores do Pedido -->
-            <div class="row justify-content-between">
-                <strong><span>SubTotal</span></strong>
-                <strong><span th:text="${#numbers.formatCurrency(pedido.subTotal)}"></span></strong>
-            </div>
+                    <!-- estado -->
+                    <div class="form-group">
+                        <label for="estado"></label>
+                        <input type="text" name="estado" id="estado" placeholder="estado..." class="form-control"
+                            th:field="*{estado}" />
+                    </div>
 
-            <div class="row justify-content-between">
-                <span>Taxa de Entrega</span>
-                <span class="text-muted" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
-            </div>
-            <div class="row pb-4 justify-content-between">
-                <strong><span>Total</span></strong>
-                <strong><span th:text="${#numbers.formatCurrency(pedido.total)}"></span></strong>
-            </div>
-            <div class="row">
-                <div class="col-auto pl-0 lead" id="previsaoEntrega" th:if="${pedido.endereco != null}">
-                    <span class="text-muted">Entrega em:</span>
-                    <p th:text="'Rua: ' + ${endereco.rua} + ', número ' + ${endereco.numero} + ' - ' + ${endereco.bairro} + ' - ' + ${endereco.cidade} + ' / ' + ${endereco.estado} + ' - ' + ${endereco.cep}"></p>
-                </div>
-            </div>
-            <div class="row pt-3 justify-content-center">
-                <a th:href="@{/clientes/pedido/inserir-endereco}" class="btn btn-outline-primary">Inserir Endereco de Entrega</a>
-                <a th:href="@{/clientes/pedido/fechar}"  class="btn btn-outline-primary ml-2">Prosseguir para fechar o pedido</a>
-            </div>
+                    <!-- cidade -->
+                    <div class="form-group">
+                        <label for="cidade"></label>
+                        <input type="text" name="cidade" id="cidade" placeholder="cidade..." class="form-control"
+                            th:field="*{cidade}" />
+                    </div>
 
+                    <!-- bairro -->
+                    <div class="form-group">
+                        <label for="bairro"></label>
+                        <input type="text" name="bairro" id="bairro" placeholder="bairro..." class="form-control"
+                            th:field="*{bairro}" />
+                    </div>
+
+                    <!-- rua -->
+                    <div class="form-group">
+                        <label for="rua"></label>
+                        <input type="text" name="rua" id="rua" placeholder="rua..." class="form-control"
+                            th:field="*{rua}" />
+                    </div>
+
+                    <!-- numero -->
+                    <div class="form-group">
+                        <label for="numero"></label>
+                        <input type="text" name="numero" id="numero" placeholder="numero..." class="form-control"
+                            th:field="*{numero}" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Inserir Endereco</button>
+                    </div>
+
+                </form>
         </div>
     </div>
 

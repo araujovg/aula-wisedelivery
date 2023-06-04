@@ -36,4 +36,7 @@ public class Usuario {
     @Getter @Setter
     @Column(length = 20, nullable = false)
     private String telefone;
+
+    @Getter @Setter
+    private String endereco;
 }

@@ -48,7 +48,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		var cat1 = RestauranteCategoria.builder()
 			.nome("Churrasco")
 			.imagem("null")
@@ -58,7 +58,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 			.nome("Massas")
 			.imagem("null")
 			.build();
-		
+
 		var cat3 = RestauranteCategoria.builder()
 			.nome("Asiática")
 			.imagem("null")
@@ -87,7 +87,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 			.nome("Sobremesas")
 			.imagem("null")
 			.build();
-			
+
 		var catItem4 = CategoriaItem.builder()
 			.nome("Lanches")
 			.imagem("null")
@@ -122,12 +122,10 @@ public class WisedeliveryApplication implements CommandLineRunner{
 
 		clienteRepository.save(cli1);
 
-
 		restauranteRepository.saveAll(List.of(rest, rest2));
 
 		criarESalvarItensDeCardapio(rest, List.of(catItem1, catItem2));
 		criarESalvarItensDeCardapio(rest2, List.of(catItem3, catItem4));
-
 	}
 
 	private void criarESalvarItensDeCardapio(Restaurante restaurante, List<CategoriaItem> categorias){
@@ -140,7 +138,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.restaurante(restaurante)
 						.categorias(categorias)
 						.build();
-		
+
 		var item2 = ItemCardapio.builder()
 						.nome("Duplo X Burguer")
 						.descricao("Hamburguer com 2 carnes e molho especial da casa")
@@ -191,9 +189,7 @@ public class WisedeliveryApplication implements CommandLineRunner{
 						.categorias(categorias)
 						.build();
 
-
 		itemCardapioRepository.saveAll(List.of(item1, item2, item3, item4, item5, item6));
-		
 	}
 
 }

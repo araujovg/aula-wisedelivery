@@ -3,7 +3,8 @@ package br.com.gva.wisedelivery.service;
 import java.util.List;
 
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFinalizarDTO;
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFechadoDTO;
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 
@@ -17,6 +18,10 @@ public interface PedidoService {
 
     PedidoTelaFinalizarDTO deCarrinhoParaPedido(Carrinho carrinho);
 
-    PedidoDTO finalizarPedido(PedidoFinalizarDTO pedido);
-    
+    PedidoFecharDTO deCarrinhoParaPedidoFecharDto(Carrinho carrinho);
+
+    PedidoDTO fecharPedido(PedidoFecharDTO pedido);
+
+    PedidoFechadoDTO salvar(Carrinho carrinho);
+
 }

@@ -1,6 +1,7 @@
 package br.com.gva.wisedelivery.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ import br.com.gva.wisedelivery.controller.validator.Validator;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
+import br.com.gva.wisedelivery.dominio.dto.enderecodto.EnderecoDTO;
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
@@ -28,6 +32,7 @@ import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
 import br.com.gva.wisedelivery.service.impl.PedidoServiceImpl;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -53,7 +58,7 @@ public class ClienteController {
 
     @Autowired
     @Getter private Validator<ClienteDTO> validator;
-    
+
     @GetMapping("form-cadastro")
     public String formCadastroCliente( Model model ){
         model.addAttribute("cliente", new ClienteDTO());
@@ -84,7 +89,7 @@ public class ClienteController {
         }
         ClienteIdDTO clienteIdDto = getClienteService().procurarCliente(cliente.getEmail());
         model.addAttribute("clienteId", clienteIdDto);
-        return home(model);        
+        return home(model);
     }
 
     @GetMapping("/home")
@@ -120,7 +125,7 @@ public class ClienteController {
             model.addAttribute("erro", true);
             model.addAttribute("msgErroRestaurante", e.getMessage());
         }
-                
+
         model.addAttribute("carrinho", carrinho);
         return "cliente-carrinho";
     }
@@ -134,7 +139,31 @@ public class ClienteController {
 
     @GetMapping("tela-finalizar-pedido")
     public String telaFinalizarPedido(Model model){
-        model.addAttribute("pedido", pedidoService.deCarrinhoParaPedido(carrinho));
+        PedidoTelaFinalizarDTO pedido = pedidoService.deCarrinhoParaPedido(carrinho);
+        EnderecoDTO endereco = (EnderecoDTO) model.getAttribute("endereco");
+        if(Objects.nonNull(endereco)) {
+            pedido.setEndereco(endereco);
+        }
+        model.addAttribute("pedido", pedido);
         return "cliente-finalizar-pedido";
     }
+
+    @GetMapping("pedido/inserir-endereco")
+    public String telaInserirEndereco(Model model){
+        model.addAttribute("endereco", new EnderecoDTO());
+        return "tela-inserirEndereco";
+    }
+
+    @PostMapping("endereco/inserir")
+    public String inserirEndereco(@ModelAttribute("endereco") EnderecoDTO endereco, Model model) {
+        model.addAttribute("endereco", endereco);
+        return telaFinalizarPedido(model);
+    }
+
+    @GetMapping("pedido/salvar")
+    public String salvarPedido(){
+        pedidoService.salvar();
+        return "";
+    }
+
 }

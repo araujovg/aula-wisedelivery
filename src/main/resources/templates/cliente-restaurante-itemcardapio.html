@@ -13,8 +13,15 @@
     <title>Hello, world!</title>
 
     <script>
-        $(function () {
-            $('[data-toggle="popover"]').popover()
+        document.addEventListener('DOMContentLoaded', function () {
+            var clienteId = localStorage.getItem('clienteId');
+            if (clienteId) {
+                var inputhidden = document.getElementById('clienteId');
+
+                inputhidden.setAttribute('value', clienteId);
+            }
+            else console.log('ERRO: CLIENTE ID VAZIO');
+
         })
     </script>
 </head>
@@ -24,13 +31,14 @@
 
     <div class="container">
         <h2 th:text="${item.nome}"></h2>
-        
+
         <div class="card">
             <h5 class="card-header" th:text="${item.descricao}"></h5>
             <div class="card-body">
               <h5 class="card-title" th:text="${#numbers.formatCurrency(item.preco)}"></h5>
               <form th:action="@{/clientes/carrinho/add/} + ${item.id}" method="post" th:object="${itemCarrinho}">
                 <div class="form-group">
+                    <input type="hidden" name="" id="clienteId" th:field="*{clienteId}">
                     <label for="qtd">Quantidade</label>
                     <input type="text" class="form-control" id="qtd" aria-describedby="qtd" th:field="*{quantidade}" />
                     <label for="obs">Observações</label>

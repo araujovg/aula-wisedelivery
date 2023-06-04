@@ -25,7 +25,7 @@ import lombok.Setter;
 @Builder
 @Entity
 public class Pedido {
-    
+
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -41,6 +41,7 @@ public class Pedido {
     private BigDecimal subtotal;
     private BigDecimal taxaEntrega;
     private BigDecimal total;
+    private String endereco;
 
     @OneToMany(mappedBy = "id.pedido", fetch = FetchType.EAGER)
     private List<ItemPedido> itens;
