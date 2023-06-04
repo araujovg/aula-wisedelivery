@@ -38,5 +38,5 @@ public class Usuario {
     private String telefone;
 
     @Getter @Setter
-    private String enderecoCompleto;
+    private String endereco;
 }

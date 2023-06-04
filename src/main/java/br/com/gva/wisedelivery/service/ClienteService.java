@@ -8,6 +8,8 @@ import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteSalvoDTO;
 public interface ClienteService {
    ClienteSalvoDTO salvar(ClienteDTO dto);
 
+   ClienteSalvoDTO procurarPeloId(Long id);
+
     boolean login(ClienteLoginDTO cliente);
 
     ClienteIdDTO procurarCliente(String email);

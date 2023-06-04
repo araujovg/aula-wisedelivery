@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteSalvoDTO;
 import br.com.gva.wisedelivery.dominio.entidades.restaurante.Restaurante;
 import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
+import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
 import lombok.Getter;
 
@@ -15,23 +17,29 @@ import lombok.Getter;
 public class Carrinho {
 
     public Carrinho(
-        ItemCardapioService itemCardapioService
+        ItemCardapioService itemCardapioService,
+        ClienteService clienteService
     ) {
         this.itemCardapioService = itemCardapioService;
+        this.clienteService = clienteService;
     }
 
+    private final ClienteService clienteService;
     private final ItemCardapioService itemCardapioService;
 
     @Getter private List<ItemCarrinhoDTO> itens = new ArrayList<>();
     @Getter private Restaurante restaurante;
+    @Getter private ClienteSalvoDTO cliente;
     private ItemCardapioDTO itemCardapioDto;
     @Getter private BigDecimal total = new BigDecimal(0);
 
-    public void adicionarItem(ItemCarrinhoDTO itemCarrinhoDTO, Long itemCardapioDtoId ) {
+    public void adicionarItem(ItemCarrinhoDTO itemCarrinhoDTO, Long itemCardapioDtoId) {
         setItemCardapio(itemCardapioDtoId);
         if(itens.isEmpty()) {
             this.restaurante = itemCardapioDto.getRestaurante();
             itemCarrinhoDTO.setId(1L);
+
+            this.cliente = clienteService.procurarPeloId(itemCarrinhoDTO.getClienteId());
         }
         else if(!restauranteIgual(itemCardapioDto.getRestaurante())) {
             throw new RestauranteDiferenteExcpetion("Não é possível adicionar itens de restaurantes diferentes no mesmo carrinho");

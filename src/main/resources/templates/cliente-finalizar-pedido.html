@@ -14,19 +14,6 @@
 
     <title>BlueFood::Pesquisa</title>
 
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var clienteId = localStorage.getItem('clienteId');
-            if (clienteId) {
-                /* var link = document.getElementById('link-itens-cardapio');
-                var href = link.getAttribute('href');
-                link.setAttribute('href', href + '/' + restauranteId); */
-            }
-            else console.log('ERRO: CLIENTE ID VAZIO');
-
-        })
-    </script>
 </head>
 
 <body id="fundo">
@@ -136,15 +123,15 @@
                 <strong><span th:text="${#numbers.formatCurrency(pedido.total)}"></span></strong>
             </div>
             <div class="row">
-
                 <div class="col-auto pl-0 lead" id="previsaoEntrega" th:if="${pedido.endereco != null}">
-                    <span class="text-muted">Entrega em</span>
-                    <p></p>
+                    <span class="text-muted">Entrega em:</span>
+                    <p th:text="'Rua: ' + ${endereco.rua} + ', número ' + ${endereco.numero} + ' - ' + ${endereco.bairro} + ' - ' + ${endereco.cidade} + ' / ' + ${endereco.estado} + ' - ' + ${endereco.cep}"></p>
                 </div>
             </div>
 
             <div class="row pt-3 justify-content-center">
-                <a th:href="@{/clientes/tela-inserir-endereco}" class="btn btn-prymary">Inserir Endereço de Entrega</a>
+                <a th:href="@{/clientes/pedido/inserir-endereco}" class="btn btn-outline-primary">Inserir Endereco de Entrega</a>
+                <a th:href="@{/clientes/pedido/fechar}"  class="btn btn-outline-primary ml-2">Prosseguir para fechar o pedido</a>
             </div>
 
         </div>

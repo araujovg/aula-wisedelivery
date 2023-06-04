@@ -95,10 +95,9 @@
 
     <div class="container w-50 position-relative bg-white p-2 shadow">
         <div class="container">
-            <h2>Cadastro de Item de Cardápio</h2>
-                <form th:action="@{/clientes/inserir-endereco}" th:object="${endereco}" method="post"
-                    enctype="multipart/form-data"><!-- Arrumar action -->
-
+            <h2>Inserir Endereço</h2>
+                <form th:action="@{/clientes/endereco/inserir}" th:object="${endereco}" method="post"
+                    enctype="multipart/form-data">
 
                     <!-- cep -->
                     <div class="form-group">

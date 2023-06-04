@@ -10,5 +10,4 @@ public class EnderecoDTO {
    private String bairro;
    private String rua;
    private String numero;
-
 }

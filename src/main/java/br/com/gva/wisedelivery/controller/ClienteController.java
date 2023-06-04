@@ -18,6 +18,10 @@ import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.enderecodto.EnderecoDTO;
+<<<<<<< HEAD
+=======
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
+>>>>>>> master
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
@@ -31,6 +35,7 @@ import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
 import br.com.gva.wisedelivery.service.impl.PedidoServiceImpl;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -146,15 +151,22 @@ public class ClienteController {
         return "cliente-finalizar-pedido";
     }
 
-    @GetMapping("tela-inserir-endereco")
-    public String telaInserirEndereco(Model model) {
+    @GetMapping("pedido/inserir-endereco")
+    public String telaInserirEndereco(Model model){
         model.addAttribute("endereco", new EnderecoDTO());
         return "tela-inserirEndereco";
     }
 
-    @PostMapping("inserir-endereco")
-    public String inserirEndereco(@ModelAttribute("endereco") EnderecoDTO endereco ,Model model) {
+    @PostMapping("endereco/inserir")
+    public String inserirEndereco(@ModelAttribute("endereco") EnderecoDTO endereco, Model model) {
         model.addAttribute("endereco", endereco);
         return telaFinalizarPedido(model);
     }
+
+    @GetMapping("pedido/salvar")
+    public String salvarPedido(){
+        pedidoService.salvar();
+        return "";
+    }
+
 }

@@ -32,7 +32,7 @@ public class ClienteServiceImpl implements ClienteService {
     public boolean login(ClienteLoginDTO cliente) {
         Cliente clienteSalvo = getClienteRepository().findByEmail(cliente.getEmail()).orElseThrow(
                 () -> new ObjetoNaoEncontradoException("Não foi encontrado um cliente para o email passado"));
-        return cliente.getEmail().equals(clienteSalvo.getEmail()) && cliente.getSenha().equals(clienteSalvo.getSenha());    
+        return cliente.getEmail().equals(clienteSalvo.getEmail()) && cliente.getSenha().equals(clienteSalvo.getSenha());
     }
 
     private Cliente deDtoParaCliente(ClienteDTO dto) {
@@ -57,6 +57,12 @@ public class ClienteServiceImpl implements ClienteService {
     public ClienteIdDTO procurarCliente(String email) {
         Cliente cliente = getClienteRepository().findByEmail(email).orElseThrow( () -> new ObjetoNaoEncontradoException(String.format("Cliente não encontrado para o email: [%s]", email)));
         return deCLienteParaClienteIdDto(cliente);
+    }
+
+    @Override
+    public ClienteSalvoDTO procurarPeloId(Long id) {
+        Cliente cliente = getClienteRepository().findById(id).orElseThrow( () -> new ObjetoNaoEncontradoException(String.format("Cliente não encontrado para o id: [%s]", id)));
+        return deClienteParaClienteSalvoDto(cliente);
     }
 
 }
