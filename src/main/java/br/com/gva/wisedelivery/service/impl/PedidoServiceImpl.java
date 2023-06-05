@@ -120,4 +120,10 @@ public class PedidoServiceImpl implements PedidoService{
     public Cliente getCLiente(Long id){
         return getClienteRepository().findById(id).orElseThrow( () -> new ObjetoNaoEncontradoException(null));
     }
+
+    @Override
+    public void fecharPedido(Carrinho carrinho) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'fecharPedido'");
+    }
 }

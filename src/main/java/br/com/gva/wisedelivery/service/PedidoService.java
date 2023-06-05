@@ -18,6 +18,8 @@ public interface PedidoService {
 
     PedidoFecharDTO deCarrinhoParaPedidoFecharDto(Carrinho carrinho);
 
+    void fecharPedido(Carrinho carrinho);
+
     //PedidoDTO fecharPedido(PedidoFecharDTO pedido);
 
     //PedidoFechadoDTO salvar(Carrinho carrinho);

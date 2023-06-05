@@ -25,10 +25,12 @@ import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
+import br.com.gva.wisedelivery.integrations.DadosCartao;
 import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
 import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
+import br.com.gva.wisedelivery.service.impl.PaymentService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.Getter;
@@ -53,6 +55,9 @@ public class ClienteController {
 
     @Autowired
     @Getter private PedidoService pedidoService;
+
+    @Autowired
+    @Getter private PaymentService paymentService;
 
     @Autowired
     @Getter private Validator<ClienteDTO> validator;
@@ -158,10 +163,16 @@ public class ClienteController {
         return telaFinalizarPedido(model);
     }
 
-    @GetMapping("pedido/fechar")
-    public String salvarPedido(Model model){
-        //getPedidoService().fecharPedido(carrinho);
-        return "";
+    @GetMapping("pedido/pagamento")
+    public String telaPagamento(Model model){
+        model.addAttribute("dadosCartao", new DadosCartao());
+        return "tela-inserirDadosCartao";
+    }
+
+    @PostMapping("pedido/pagar")
+    public String realizarPagamento(@ModelAttribute("dadosCartao") DadosCartao dadosCartao, Model model) {
+        model.addAttribute("statusPagamento", getPaymentService().pay(dadosCartao));
+        return telaFinalizarPedido(model);
     }
 
 }
