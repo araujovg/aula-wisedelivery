@@ -99,46 +99,11 @@
                 <form th:action="@{/clientes/endereco/inserir}" th:object="${endereco}" method="post"
                     enctype="multipart/form-data">
 
-                    <!-- cep -->
+                    <!-- endereço -->
                     <div class="form-group">
-                        <label for="cep"></label>
-                        <input type="text" name="cep" id="cep" placeholder="cep..." class="form-control"
-                            th:field="*{cep}" />
-                    </div>
-
-                    <!-- estado -->
-                    <div class="form-group">
-                        <label for="estado"></label>
-                        <input type="text" name="estado" id="estado" placeholder="estado..." class="form-control"
-                            th:field="*{estado}" />
-                    </div>
-
-                    <!-- cidade -->
-                    <div class="form-group">
-                        <label for="cidade"></label>
-                        <input type="text" name="cidade" id="cidade" placeholder="cidade..." class="form-control"
-                            th:field="*{cidade}" />
-                    </div>
-
-                    <!-- bairro -->
-                    <div class="form-group">
-                        <label for="bairro"></label>
-                        <input type="text" name="bairro" id="bairro" placeholder="bairro..." class="form-control"
-                            th:field="*{bairro}" />
-                    </div>
-
-                    <!-- rua -->
-                    <div class="form-group">
-                        <label for="rua"></label>
-                        <input type="text" name="rua" id="rua" placeholder="rua..." class="form-control"
-                            th:field="*{rua}" />
-                    </div>
-
-                    <!-- numero -->
-                    <div class="form-group">
-                        <label for="numero"></label>
-                        <input type="text" name="numero" id="numero" placeholder="numero..." class="form-control"
-                            th:field="*{numero}" />
+                        <label for="endereco"></label>
+                        <input type="text" name="endereco" id="endereco" placeholder="endereco..." class="form-control"
+                            th:field="*{endereco}" />
                     </div>
 
                     <div class="form-group">

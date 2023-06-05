@@ -37,6 +37,7 @@ public class Carrinho {
         setItemCardapio(itemCardapioDtoId);
         if(itens.isEmpty()) {
             this.restaurante = itemCardapioDto.getRestaurante();
+            setCliente(itemCarrinhoDTO.getClienteId());
             itemCarrinhoDTO.setId(1L);
 
             this.cliente = clienteService.procurarPeloId(itemCarrinhoDTO.getClienteId());
@@ -79,5 +80,9 @@ public class Carrinho {
     private void setTotal(BigDecimal valor){
         this.total = valor;
     }
+
+	private void setCliente(Long clienteId) {
+        this.cliente = clienteService.procurarPeloId(clienteId);  
+	}
 
 }

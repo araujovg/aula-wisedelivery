@@ -14,6 +14,14 @@
 
     <title>BlueFood::Pesquisa</title>
 
+    <script th:inline="javascript">
+        var endereco = /*[[${endereco}]]*/ '';
+        if (endereco) {
+            localStorage.setItem('endereco', endereco.endereco)
+        } else console.log("ENDERECONOK");
+
+    </script>
+
 </head>
 
 <body id="fundo">
@@ -90,12 +98,12 @@
             </div>
 
             <div class="row mt-3">
-                <h2 class="text-muted" style="display: block;" th:text="${pedido.restaurante.nome}"></h2>
+                <h2 class="text-muted" style="display: block;" th:text="${pedido.carrinho.restaurante.nome}"></h2>
             </div>
 
             <!-- Itens do Pedido -->
 
-            <ul class="list-group list-group-flush" th:each="item : ${pedido.itens}">
+            <ul class="list-group list-group-flush" th:each="item : ${pedido.carrinho.itens}">
                 <li class="list-group-item">
                     <div class="row justify-content-between">
                         <strong>
@@ -125,13 +133,17 @@
             <div class="row">
                 <div class="col-auto pl-0 lead" id="previsaoEntrega" th:if="${pedido.endereco != null}">
                     <span class="text-muted">Entrega em:</span>
-                    <p th:text="'Rua: ' + ${endereco.rua} + ', número ' + ${endereco.numero} + ' - ' + ${endereco.bairro} + ' - ' + ${endereco.cidade} + ' / ' + ${endereco.estado} + ' - ' + ${endereco.cep}"></p>
+                    <p
+                        th:text="${endereco.endereco}">
+                    </p>
                 </div>
             </div>
 
             <div class="row pt-3 justify-content-center">
-                <a th:href="@{/clientes/pedido/inserir-endereco}" class="btn btn-outline-primary">Inserir Endereco de Entrega</a>
-                <a th:href="@{/clientes/pedido/fechar}"  class="btn btn-outline-primary ml-2">Prosseguir para fechar o pedido</a>
+                <a th:href="@{/clientes/pedido/inserir-endereco}" class="btn btn-outline-primary">Inserir Endereco de
+                    Entrega</a>
+                <a th:href="@{/clientes/pedido/fechar}" class="btn btn-outline-primary ml-2">Prosseguir para fechar o
+                    pedido</a>
             </div>
 
         </div>

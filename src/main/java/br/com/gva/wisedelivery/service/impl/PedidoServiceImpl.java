@@ -1,22 +1,16 @@
 package br.com.gva.wisedelivery.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gva.wisedelivery.dominio.dto.enderecodto.EnderecoDTO;
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFechadoDTO;
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.entidades.cliente.Cliente;
 import br.com.gva.wisedelivery.dominio.entidades.pedido.ItemPedido;
-import br.com.gva.wisedelivery.dominio.entidades.pedido.Pedido;
 import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
 import br.com.gva.wisedelivery.repository.ClienteRepository;
 import br.com.gva.wisedelivery.repository.ItemCardapioRepository;
@@ -63,13 +57,15 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
-    public PedidoTelaFinalizarDTO deCarrinhoParaPedido(Carrinho carrinho) {
-        PedidoTelaFinalizarDTO pedido = new PedidoTelaFinalizarDTO();
-        pedido.setRestaurante(getRestauranteService().procurarPeloEmail(carrinho.getRestaurante().getEmail()));
-        pedido.setSubTotal(carrinho.getTotal());
-        pedido.setTaxaEntrega(carrinho.getRestaurante().getTaxaEntrega());
-        pedido.setTotal(pedido.getSubTotal().add(pedido.getTaxaEntrega()));
-        pedido.setItens(getItensPedido(carrinho.getItens()));
+    public PedidoDTO deCarrinhoParaPedidoDTO(Carrinho carrinho) {
+        PedidoDTO pedido = PedidoDTO.builder()
+            .carrinho(carrinho)
+            .pagamento(false)
+            .endereco(null)
+            .subTotal(carrinho.getTotal())
+            .taxaEntrega(carrinho.getRestaurante().getTaxaEntrega())
+            .total(carrinho.getTotal().add(carrinho.getRestaurante().getTaxaEntrega()))
+            .build();
         return pedido;
     }
 
@@ -97,13 +93,13 @@ public class PedidoServiceImpl implements PedidoService{
         }).toList();
     }
 
-    @Override
+    /* @Override
     public PedidoDTO fecharPedido(PedidoFecharDTO pedido) {
 
         throw new UnsupportedOperationException("Unimplemented method 'fecharPedido'");
-    }
+    } */
 
-    @Override
+/*     @Override
     public PedidoFechadoDTO salvar(Carrinho carrinho) {
 
         Cliente cliente = getCLiente(carrinho.getCliente().getId());
@@ -119,27 +115,9 @@ public class PedidoServiceImpl implements PedidoService{
             .build();
 
         return getPedidoRepository().save(pedido);
-    }
+    } */
 
     public Cliente getCLiente(Long id){
         return getClienteRepository().findById(id).orElseThrow( () -> new ObjetoNaoEncontradoException(null));
     }
-
-    public String getEnderecoFormatado(EnderecoDTO enderecoDTO) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Rua ");
-        sb.append(enderecoDTO.getRua());
-        sb.append(", ");
-        sb.append(enderecoDTO.getNumero());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getBairro());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getCidade());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getEstado());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getCep());
-        return sb.toString();
-    }
-
 }
