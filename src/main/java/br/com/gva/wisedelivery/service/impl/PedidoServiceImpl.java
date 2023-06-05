@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.gva.wisedelivery.dominio.dto.enderecodto.EnderecoDTO;
 import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFechadoDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.entidades.cliente.Cliente;
@@ -63,26 +60,28 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
-    public PedidoTelaFinalizarDTO deCarrinhoParaPedido(Carrinho carrinho) {
-        PedidoTelaFinalizarDTO pedido = new PedidoTelaFinalizarDTO();
-        pedido.setRestaurante(getRestauranteService().procurarPeloEmail(carrinho.getRestaurante().getEmail()));
-        pedido.setSubTotal(carrinho.getTotal());
-        pedido.setTaxaEntrega(carrinho.getRestaurante().getTaxaEntrega());
-        pedido.setTotal(pedido.getSubTotal().add(pedido.getTaxaEntrega()));
-        pedido.setItens(getItensPedido(carrinho.getItens()));
+    public PedidoDTO deCarrinhoParaPedidoDTO(Carrinho carrinho) {
+        PedidoDTO pedido = PedidoDTO.builder()
+            .carrinho(carrinho)
+            .restaurante(carrinho.getRestaurante())
+            .cliente(carrinho.getCliente())
+            .subTotal(carrinho.getTotal())
+            .taxaEntrega(carrinho.getRestaurante().getTaxaEntrega())
+            .total(carrinho.getTotal().add(carrinho.getRestaurante().getTaxaEntrega()))
+            .build();
         return pedido;
     }
 
     @Override
-    public PedidoFecharDTO deCarrinhoParaPedidoFecharDto(Carrinho carrinho) {
-        PedidoFecharDTO pedido = new PedidoFecharDTO();
+    public PedidoDTO deCarrinhoParaPedidoFecharDto(Carrinho carrinho) {
+        /* PedidoDTO pedido = new PedidoDTO();
         pedido.setRestaurante(getRestauranteService().procurarPeloEmail(carrinho.getRestaurante().getEmail()));
         pedido.setCliente(getClienteService().procurarPeloId(carrinho.getCliente().getId()));
         pedido.setSubTotal(carrinho.getTotal());
         pedido.setTaxaEntrega(carrinho.getRestaurante().getTaxaEntrega());
         pedido.setTotal(pedido.getSubTotal().add(pedido.getTaxaEntrega()));
-        pedido.setItens(getItensPedido(carrinho.getItens()));
-        return pedido;
+        pedido.setItens(getItensPedido(carrinho.getItens())); */
+        return null;
     }
 
 
@@ -98,13 +97,13 @@ public class PedidoServiceImpl implements PedidoService{
     }
 
     @Override
-    public PedidoDTO fecharPedido(PedidoFecharDTO pedido) {
+    public PedidoDTO fecharPedido(PedidoDTO pedido) {
 
         throw new UnsupportedOperationException("Unimplemented method 'fecharPedido'");
     }
 
     @Override
-    public PedidoFechadoDTO salvar(Carrinho carrinho) {
+    public PedidoDTO salvar(Carrinho carrinho) {
 
         Cliente cliente = getCLiente(carrinho.getCliente().getId());
         Pedido pedido = Pedido.builder()
@@ -118,28 +117,11 @@ public class PedidoServiceImpl implements PedidoService{
             .endereco(cliente.getEndereco())
             .build();
 
-        return getPedidoRepository().save(pedido);
+        return null;
     }
 
     public Cliente getCLiente(Long id){
         return getClienteRepository().findById(id).orElseThrow( () -> new ObjetoNaoEncontradoException(null));
-    }
-
-    public String getEnderecoFormatado(EnderecoDTO enderecoDTO) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Rua ");
-        sb.append(enderecoDTO.getRua());
-        sb.append(", ");
-        sb.append(enderecoDTO.getNumero());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getBairro());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getCidade());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getEstado());
-        sb.append(" - ");
-        sb.append(enderecoDTO.getCep());
-        return sb.toString();
     }
 
 }

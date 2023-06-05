@@ -14,13 +14,19 @@
 
     <title>BlueFood::Pesquisa</title>
 
-    <script th:inline="javascript">
-        var endereco = /*[[${endereco}]]*/ '';
-        if(endereco) {
-            localStorage.setItem('endereco', endereco.endereco);
-        } else console.log("ENDERECO NOK");
-    </script>
+    <script>
 
+        document.addEventListener('DOMContentLoaded', function () {
+            var clienteId = localStorage.getItem('clienteId');
+            if (clienteId) {
+                /* var link = document.getElementById('link-itens-cardapio');
+                var href = link.getAttribute('href');
+                link.setAttribute('href', href + '/' + restauranteId); */
+            }
+            else console.log('ERRO: CLIENTE ID VAZIO');
+
+        })
+    </script>
 </head>
 
 <body id="fundo">
@@ -89,57 +95,21 @@
 
     <div class="container w-50 position-relative bg-white p-2 shadow">
         <div class="container">
-            <div class="row">
-                <a href="#" class="muted">
-                    <span class="material-icons align-middle">chevron_left</span>
-                    <span class="align-middle">Voltar</span>
-                </a>
-            </div>
+            <h2>Inserir Endereço</h2>
+                <form th:action="@{/clientes/...}" th:object="${dadosCartao}" method="post">
 
-            <div class="row mt-3">
-                <h2 class="text-muted" style="display: block;" th:text="${pedido.restaurante.nome}"></h2>
-            </div>
-
-            <!-- Itens do Pedido -->
-
-            <ul class="list-group list-group-flush" th:each="item : ${pedido.carrinho.itens}">
-                <li class="list-group-item">
-                    <div class="row justify-content-between">
-                        <strong>
-                            <span th:text="${item.quantidade} + ' x ' + ${item.itemCardapio.nome}"></span>
-                        </strong>
-                        <strong>
-                            <span th:text="${#numbers.formatCurrency(item.preco)}"></span>
-                        </strong>
+                    <!-- endereço -->
+                    <div class="form-group">
+                        <label for="dadosCartao"></label>
+                        <input type="text" name="dadosCartao" id="dadosCartao" placeholder="dadosCartao..." class="form-control"
+                            th:field="*{numeroCartao}" />
                     </div>
-                </li>
-            </ul>
 
-            <!-- Resumo dos valores do Pedido -->
-            <div class="row justify-content-between">
-                <strong><span>SubTotal</span></strong>
-                <strong><span th:text="${#numbers.formatCurrency(pedido.subTotal)}"></span></strong>
-            </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Inserir Endereco</button>
+                    </div>
 
-            <div class="row justify-content-between">
-                <span>Taxa de Entrega</span>
-                <span class="text-muted" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
-            </div>
-            <div class="row pb-4 justify-content-between">
-                <strong><span>Total</span></strong>
-                <strong><span th:text="${#numbers.formatCurrency(pedido.total)}"></span></strong>
-            </div>
-            <div class="row">
-                <div class="col-auto pl-0 lead" id="previsaoEntrega" th:if="${pedido.endereco != null}">
-                    <span class="text-muted">Entrega em:</span>
-                    <p th:text="${endereco.endereco}"></p>
-                </div>
-            </div>
-            <div class="row pt-3 justify-content-center">
-                <a th:href="@{/clientes/pedido/inserir-endereco}" class="btn btn-outline-primary">Inserir Endereco de Entrega</a>
-                <a th:href="@{/clientes/pedido/pagamento}"  class="btn btn-outline-primary ml-2">Prosseguir para o pagamento</a>
-            </div>
-
+                </form>
         </div>
     </div>
 

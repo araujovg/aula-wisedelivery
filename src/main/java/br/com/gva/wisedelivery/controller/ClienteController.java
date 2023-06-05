@@ -18,21 +18,19 @@ import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteIdDTO;
 import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteLoginDTO;
 import br.com.gva.wisedelivery.dominio.dto.enderecodto.EnderecoDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoFecharDTO;
-import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoTelaFinalizarDTO;
+import br.com.gva.wisedelivery.dominio.dto.pedidodto.PedidoDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.Carrinho;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCardapioTabelaDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.ItemCarrinhoDTO;
 import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteIdDTO;
 import br.com.gva.wisedelivery.exception.RestauranteDiferenteExcpetion;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
+import br.com.gva.wisedelivery.integracao.dados.DadosCartao;
 import br.com.gva.wisedelivery.service.ClienteService;
 import br.com.gva.wisedelivery.service.ItemCardapioService;
 import br.com.gva.wisedelivery.service.PedidoService;
 import br.com.gva.wisedelivery.service.RestauranteService;
-import br.com.gva.wisedelivery.service.impl.PedidoServiceImpl;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -139,7 +137,7 @@ public class ClienteController {
 
     @GetMapping("tela-finalizar-pedido")
     public String telaFinalizarPedido(Model model){
-        PedidoTelaFinalizarDTO pedido = pedidoService.deCarrinhoParaPedido(carrinho);
+        PedidoDTO pedido = pedidoService.deCarrinhoParaPedidoDTO(carrinho);
         EnderecoDTO endereco = (EnderecoDTO) model.getAttribute("endereco");
         if(Objects.nonNull(endereco)) {
             pedido.setEndereco(endereco);
@@ -160,10 +158,10 @@ public class ClienteController {
         return telaFinalizarPedido(model);
     }
 
-    @GetMapping("pedido/salvar")
-    public String salvarPedido(){
-        pedidoService.salvar();
-        return "";
+    @GetMapping("pedido/pagamento")
+    public String telaRealizarPagamento(Model model){
+        model.addAttribute("dadosCartao", new DadosCartao());
+        return "tela-inserirDadosCartao";
     }
 
 }
